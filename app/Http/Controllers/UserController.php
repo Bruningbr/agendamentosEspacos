@@ -1,0 +1,51 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\User;
+use Illuminate\Http\Request;
+
+class UserController extends Controller
+{
+    public function store(Request $request){
+        // 'name',
+        // 'email',
+        // 'password',
+        // 'user_type'
+
+    $user = User::create([
+        'name' => $request->name,
+        'email' => $request->email,
+        'password' => $request->password,
+        'user_type' => $request->user_type
+
+    ]);
+
+    return response()->json([
+    'msg' => 'Cadastro',
+    'dados' => $user
+    ]);
+    
+    }
+    
+    // Listar todos os registros da tabela
+    public function index(){
+    $users = User::all();
+
+    return response()->json($users);
+   }
+
+   // Listar usuario po ID
+   public function show($id){
+    $user = User::find($id);
+
+    if(!$user){
+        return response()->json([
+            'msg' => 'Usuario não encontrado'
+        ]);
+    }
+
+    return response()->json($user);
+
+   }
+}
