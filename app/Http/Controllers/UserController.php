@@ -13,13 +13,14 @@ class UserController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:255|unique:users,email',
             'password' => 'required|string|min:8',
+            'user_type' => 'required|in:aluno,professor,coordenador',
         ]);
 
         $user = User::create([
             'name' => $validated['name'],
             'email' => $validated['email'],
             'password' => $validated['password'],
-            'user_type' => $request->user_type,
+            'user_type' => $validated['user_type'],
         ]);
 
         return response()->json([
